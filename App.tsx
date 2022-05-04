@@ -125,7 +125,16 @@ export default function App() {
           <Picker.Item key={item} label={item.toString()} value={item.toString()} />
 
         ))}
+      </Picker>
+      <Picker
+        selectedValue={selectedLanguage}
+        style={{ height: 200, width: 150 }}
+        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+      >
+        {[...Array(100).keys()].map((item) => (
+          <Picker.Item key={item} label={item.toString()} value={item.toString()} />
 
+        ))}
       </Picker>
       <CalendarList
         // Callback which gets executed when visible months change in scroll view. Default = undefined
