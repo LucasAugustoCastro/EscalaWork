@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View, Picker } from 'react-native';
 import { CalendarList } from 'react-native-calendars';
 import {addDays, format} from 'date-fns'
 
@@ -18,6 +18,7 @@ export default function App() {
   const [restPeriod, setRestPeriod] = useState(Number)
   const [startDate, setStartDate] = useState(new Date())
   const [restDays, setRestDays] = useState({})
+  const [selectedLanguage, setSelectedLanguage] = useState('')
 
   const getRestInfo = () => {
     return {workPeriod:14, restPeriod: 21, startDate:'2022-03-23'}
@@ -114,6 +115,18 @@ export default function App() {
 
   return (
     <View style={styles.container} >
+
+      <Picker
+        selectedValue={selectedLanguage}
+        style={{ height: 200, width: 150 }}
+        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+      >
+        {[...Array(100).keys()].map((item) => (
+          <Picker.Item key={item} label={item.toString()} value={item.toString()} />
+
+        ))}
+
+      </Picker>
       <CalendarList
         // Callback which gets executed when visible months change in scroll view. Default = undefined
         onVisibleMonthsChange={(months) => {
@@ -140,6 +153,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop: 40,
     alignItems: 'center',
     justifyContent: 'center',
   },
